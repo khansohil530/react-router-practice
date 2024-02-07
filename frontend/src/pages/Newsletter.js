@@ -1,3 +1,5 @@
+import { json } from "react-router-dom";
+
 import NewsletterSignup from "../components/NewsletterSignup";
 import PageContent from "../components/PageContent";
 
@@ -16,6 +18,8 @@ export async function action({ request }) {
     const email = data.get("email");
 
     // send to backend newsletter server ...
-    console.log(email);
+    if (!email) {
+        throw json({ message: "Invalid email" }, { status: 422 });
+    }
     return { message: "Signup successful!" };
 }
